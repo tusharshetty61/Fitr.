@@ -56,13 +56,27 @@ if choice == 'Login':
     if login:
         user = auth.sign_in_with_email_and_password(email,password)
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
-        bio = st.radio('Jump to',['Contact','Goal', 'Progress'])
+        bio = st.radio('How can we help you :DD ? ',['Contact','Let us know you a bit better','Goal', 'Progress'])
         
         if bio == 'Contact':
             col1,col2,col3=st.columns(3)    
             col1.write("Anisha")
             col2.write("Ananya")
-            col3.write("Tushar")  
+            col3.write("Tushar")
+
+        elif bio=='Let us know you a bit better':
+                
+            with st.form('initial input'):
+                ht=st.number_input("Enter height in cm")
+                wt=st.number_input("Enter weight in kgs")
+                activity=st.number_input("Enter number of days you exercise in a week")
+                gender=st.text_input("Enter gender M/F")
+                age=st.number_input("Enter age")
+                hours=st.number_input("Enter number of hours")
+                submit=st.submit_form_button("Calculate wellness score")
+            if submit:
+                User.update_user_stats(ht,wt,activity,gender,age,hours)
+
         elif bio == 'Goal':
             with st.form("set goals"):
                 steps = st.number_input("Averahge daily steps")
@@ -78,4 +92,5 @@ if choice == 'Login':
                 col1.write("Steps:")
                 col2.write("Screen Time:")
                 col3.write("Mood:")
+
   
