@@ -79,7 +79,7 @@ if choice == 'Login':
 
         elif bio == 'Goal':
             with st.form("set goals"):
-                steps = st.number_input("Averahge daily steps")
+                steps = st.number_input("Average daily steps")
                 calories = st.number_input("Average calories per day")
                 wellnessgoal = st.number_input("Score goal")
                 screentimegoal=st.number_input("screen time goal in hours")
@@ -88,9 +88,13 @@ if choice == 'Login':
                 User.user_goals_update(steps,calories,wellnessgoal,screentimegoal)  
 
         elif bio == 'Progress':
-                col1,col2,col3=st.columns(3)
-                col1.write("Steps:")
-                col2.write("Screen Time:")
-                col3.write("Mood:")
+            with st.form("Food habits"):
+                bf=st.radio("Did you eat breakfast today?", ["1:yes","2:no"])
+                temp=bf.split(":")
+                boolBf= int(temp[0])-1
+            col1,col2,col3=st.columns(3)
+            col1.write("Steps:")
+            col2.write("Screen Time:")
+            col3.write("Mood:")
 
   
