@@ -19,5 +19,3 @@ container.write("Heyy welcome to Fitr !  Feel free to explore the app as you wis
 
 col1,col2,col3 = st.columns(3)
 app.run()
-
-
