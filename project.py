@@ -75,13 +75,15 @@ if choice == 'Login':
             with st.form('initial input'):
                 ht=st.number_input("Enter height in cm")
                 wt=st.number_input("Enter weight in kgs")
-                activity=st.number_input("Enter number of days you exercise in a week")
+                activity=st.radio("Enter number of days you exercise in a week",["1:<1 days","2:1-3 days","3:3-5 days","4:6-7 days","5:physical job"])
                 gender=st.text_input("Enter gender M/F")
                 age=st.number_input("Enter age")
                 hours=st.number_input("Enter number of hours")
                 submit=st.submit_form_button("Calculate wellness score")
             if submit:
-                user.update_user_stats(ht,wt,activity,gender,age,hours)
+                temp=activity.split(":")
+                act=int(temp[0])
+                user.update_user_stats(ht,wt,act,gender,age,hours)
 
         elif bio == 'Goal':
             with st.form("set goals"):
@@ -97,14 +99,14 @@ if choice == 'Login':
             fdu = food.FoodItem.unique()
             with st.form("Food habits"):
                 bf=st.radio("Did you eat breakfast today?", ["1:yes","2:no"])
-                #temp=bf.split(":")
-                #boolBf= int(temp[0])-1
                 breakfast=st.multiselect(label="Choose your food",options=fdu,key=1)
                 lunch=st.multiselect("Choose your food",fdu,key=2)
                 dinner=st.multiselect("Choose your food",fdu,key=3)
                 submi2 = st.form_submit_button("submit")
             if(submi2):
-                print("hey") 
+                temp=bf.split(":")
+                boolBf= int(temp[0])-1
+                user.update_user_progress(boolBf,breakfast,lunch,dinner)
             col1,col2,col3=st.columns(3)
             col1.write("Steps:")
             col2.write("Screen Time:")
