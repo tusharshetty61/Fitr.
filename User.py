@@ -105,8 +105,28 @@ class User:
             score=score-2
         return score
 
-    def calc_calories(food):
-        return 1
+    def calc_calories(self):
+        cal = 0
+        df_cal = pd.read_csv("C:/Users/anany/Documents/GitHub/Hashcode_2022/data/calories.csv")
+        df_cal['Cals_per100grams'] = df_cal['Cals_per100grams'].str.replace(' cal','')
+        i = 0
+        for food in self.uinfo['breakfast']:
+            if (df_cal['FoodItem'][i] == food):
+                cal = cal + df_cal['Cals_per100grams'][i]
+                i = i + 1
+        i = 0
+        for food in self.uinfo['lunch']:
+            if (df_cal['FoodItem'][i] == food):
+                cal = cal + df_cal['Cals_per100grams'][i]
+                i = i + 1
+        i = 0 
+        for food in self.uinfo['dinner']:
+            if (df_cal['FoodItem'][i] == food):
+                cal = cal + df_cal['Cals_per100grams'][i]
+                i = i + 1
+        
+        return cal
+             
         
     def update_score(self):
         bmi=self.uinfo['wt']*100*100/(self.uinfo['ht']*self.uinfo['ht'])
@@ -123,7 +143,7 @@ class User:
         calorie=self.cintake()
         heart=self.heartScore()
         sleep=self.sleep_score
-        cal_score= calorie- self.calc_calories()
+        cal_score= calorie - self.calc_calories()
         phy_wellness= heart*100 + sleep*100 - cal_score
         #men_health= load model and give output
         self.tinfo['phy_wellness'] = phy_wellness
