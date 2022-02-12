@@ -3,6 +3,7 @@ import pyrebase
 import streamlit as st
 from datetime import datetime
 import User
+import pandas as pd
 
 # Configuration Key
 firebaseConfig = {
@@ -32,6 +33,8 @@ choice = st.sidebar.selectbox('login/Signup', ['Login', 'Sign up'])
 email = st.sidebar.text_input('Please enter your email address')
 password = st.sidebar.text_input('Please enter your password',type = 'password')
 
+#dataset
+food = pd.read_csv('/data/calories.csv')
 # App 
 
 # Sign up Block
@@ -94,6 +97,9 @@ if choice == 'Login':
                 bf=st.radio("Did you eat breakfast today?", ["1:yes","2:no"])
                 temp=bf.split(":")
                 boolBf= int(temp[0])-1
+                bf=st.multiselect(food['FoodItem'])
+                lunch=st.multiselect(food['FoodItem'])
+                dinner=st.multiselect(food['FoodItem'])
             col1,col2,col3=st.columns(3)
             col1.write("Steps:")
             col2.write("Screen Time:")
