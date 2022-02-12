@@ -9,7 +9,7 @@ class User:
         self.status = " "
         self.goals= {'steps':0,'calories':0,'wellnessgoals':0,'screentimegoals':0}
         self.uinfo={'ht':0,'wt':0,'activity':0,'gender':"F",'age':0,'hours':0}
-        self.tinfo={'boolBF':False,'breakfast':[],'lunch':[],'dinner':[],'heartRate':0,'hours':0,'stepsWalked':0,'phy_wellness':0}
+        self.tinfo={'boolBF':False,'breakfast':[],'lunch':[],'dinner':[],'heartRate':0,'hours':0,'stepsWalked':0,'phy_wellness':0,'mood':""}
         
     def update_user_goals(self,steps,calories,wellnessgoals,screentimegoals):
         self.goals['steps']=steps 
@@ -164,3 +164,4 @@ class User:
         phy_wellness= heart*10 + sleep*10  
         #men_health= load model and give output
         self.tinfo['phy_wellness'] = phy_wellness
+        self.get_mood()

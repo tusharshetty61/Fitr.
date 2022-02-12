@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import streamlit as st 
 import seaborn as sns
 
-daily_activity_merged_df = pd.read_csv("C:/Users/anany/Documents/GitHub/Hashcode_2022/data/dailyActivity_merge.csv")
-sleep_day_merged_df = pd.read_csv("C:/Users/anany/Documents/GitHub/Hashcode_2022/data/sleepDay_merged.csv")
+daily_activity_merged_df = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/dailyActivity_merge.csv")
+sleep_day_merged_df = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/sleepDay_merged.csv")
 def graph1():
     i = 0
     daily_step = []
