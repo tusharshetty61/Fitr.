@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import pickle as pkl
 food=pd.read_csv('/mnt/d/Hashcode/Hashcode_2022/data/calories.csv')
 class User:
 
@@ -112,23 +112,37 @@ class User:
         df_cal = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/calories.csv")
         df_cal['Cals_per100grams'] = df_cal['Cals_per100grams'].str.replace(' cal','')
         i = 0
-        for food in self.uinfo['breakfast']:
+        for food in self.tinfo['breakfast']:
             if (df_cal['FoodItem'][i] == food):
                 cal = cal + df_cal['Cals_per100grams'][i]
                 i = i + 1
         i = 0
-        for food in self.uinfo['lunch']:
+        for food in self.tinfo['lunch']:
             if (df_cal['FoodItem'][i] == food):
                 cal = cal + df_cal['Cals_per100grams'][i]
                 i = i + 1
         i = 0 
-        for food in self.uinfo['dinner']:
+        for food in self.tinfo['dinner']:
             if (df_cal['FoodItem'][i] == food):
                 cal = cal + df_cal['Cals_per100grams'][i]
                 i = i + 1
         
-        return cal
-             
+        return 1800
+    def get_mood(self):
+        with open('/mnt/d/Hashcode/Hashcode_2022/model_pkl.pkl') as f :
+            model = pkl.load(f)
+        if(self.uinfo['activity'])<3:
+            act=0
+        else:
+            act=1
+        
+        y=model.predict(7000,900,self.uinfo['hours'],act,self.uinfo['wt'])
+        if y==1:
+            self.tinfo['mood']='Sad'
+        elif y==2:
+            self.tinfo['mood']='neutral'
+        else:
+            self.tinfo['mood']='happy'
         
     def update_score(self):
         print(self.uinfo['wt'])
@@ -147,6 +161,6 @@ class User:
         heart=self.heartScore()
         sleep=self.sleep_score()
         cal_score= calorie- self.calc_calories()
-        phy_wellness= heart*100 + sleep*100 - cal_score
+        phy_wellness= heart*10 + sleep*10  
         #men_health= load model and give output
         self.tinfo['phy_wellness'] = phy_wellness

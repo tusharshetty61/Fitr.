@@ -5,7 +5,7 @@ from datetime import datetime
 import Contact
 from User import User
 import pandas as pd
-import graphs import *
+from graphs import *
 
 
 # Configuration Key
@@ -125,7 +125,7 @@ if choice == 'Login':
             st.session_state.key2=st.session_state.key1
             col1.write(st.session_state.key2.tinfo['phy_wellness'])
             col2.write("Screen Time:")
-            col3.write("Mood:")
+            col3.write(st.session_state.key2.tinfo['mood'])
             graph1()
             graph2()
 
