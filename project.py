@@ -5,6 +5,7 @@ from datetime import datetime
 import Contact
 from User import User
 import pandas as pd
+import graphs import *
 
 # Configuration Key
 firebaseConfig = {
@@ -114,4 +115,6 @@ if choice == 'Login':
             col1.write("Score:")
             col2.write("Screen Time:")
             col3.write("Mood:")
-  
+            graph1()
+            graph2()
+

@@ -1,5 +1,6 @@
 import streamlit as st 
 import pandas as pd
+import pickle as pkl
 
 food = pd.read_csv('C:/Users/anany/Documents/GitHub/Hashcode_2022/data/calories.csv')
 
@@ -41,3 +42,9 @@ if(submi2):
     # hoursSlept=1
     # StepsWalked=1
     # user.update_user_progress(boolBf,breakfast,lunch,dinner,rate,hoursSlept,StepsWalked)
+
+def get_mood(self):
+    with open('C:/Users/anany/Documents/GitHub/Hashcode_2022/model_pkl.pkl','rb') as f:
+        model = pkl.load(f)
+    
+    

@@ -11,8 +11,8 @@ import pandas as pd
 import numpy as np
 import pickle
 
-df = pd.read_csv('C:/Users/anish/Downloads/archive/25.csv')
-y=pd.read_csv('C:/Users/anish/Downloads/archive/25.csv')
+df = pd.read_csv('C:/Users/anany/Documents/GitHub/Hashcode_2022/data/25.csv')
+y=pd.read_csv('C:/Users/anany/Documents/GitHub/Hashcode_2022/data/25.csv')
 
 # df.head
 
