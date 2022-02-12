@@ -6,23 +6,26 @@ import Contact
 from User import User
 import pandas as pd
 
+
 # Configuration Key
 firebaseConfig = {
-  'apiKey': "AIzaSyDLwwPS414RzjHi9-7gCFYs7m0oaqPjZiQ",
-  'authDomain': "hashcode-test.firebaseapp.com",
-  'projectId': "hashcode-test",
-  'storageBucket': "hashcode-test.appspot.com",
-  'messagingSenderId': "285406807460",
-  'appId': "1:285406807460:web:0cb1206806800c37eead31",
-  'measurementId': "G-Z60LBC3GDG",
-  'databaseURL': "https://hashcode-test-default-rtdb.asia-southeast1.firebasedatabase.app/"
+'apiKey': "AIzaSyDLwwPS414RzjHi9-7gCFYs7m0oaqPjZiQ",
+'authDomain': "hashcode-test.firebaseapp.com",
+'projectId': "hashcode-test",
+'storageBucket': "hashcode-test.appspot.com",
+'messagingSenderId': "285406807460",
+'appId': "1:285406807460:web:0cb1206806800c37eead31",
+'measurementId': "G-Z60LBC3GDG",
+'databaseURL': "https://hashcode-test-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }
 
 # Firebase Authentication
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
+x=5
 
 # Database
+
 db = firebase.database()
 storage = firebase.storage()
 st.sidebar.title("Fitr.")
@@ -37,7 +40,7 @@ password = st.sidebar.text_input('Please enter your password',type = 'password')
 #dataset
 food = pd.read_csv('/mnt/d/Hashcode/Hashcode_2022/data/calories.csv')
 # App 
-
+st.session_state.userinfo=[]
 # Sign up Block
 if choice == 'Sign up':
     handle = st.sidebar.text_input(
@@ -63,15 +66,20 @@ if choice == 'Login':
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
         bio = st.radio('How can we help you :DD ? ',['Contact','Let us know you a bit better','Goal', 'Progress'])
         user=User('sup')
+        if 'key' not in st.session_state:
+            st.session_state.key=user
+        
+
         
         if bio == 'Contact':
             col1,col2,col3=st.columns(3)    
             col1.write("Anisha")
             col2.write("Ananya")
             col3.write("Tushar")
+            x=10
 
         elif bio=='Let us know you a bit better':
-                
+            x=10
             with st.form('initial input'):
                 ht=st.number_input("Enter height in cm")
                 wt=st.number_input("Enter weight in kgs")
@@ -79,11 +87,12 @@ if choice == 'Login':
                 gender=st.text_input("Enter gender M/F")
                 age=st.number_input("Enter age")
                 hours=st.number_input("Enter number of hours you sleep on average")
-                submit=st.submit_form_button("Update")
+                submit=st.form_submit_button("Update")
             if submit:
                 temp=activity.split(":")
                 act=int(temp[0])
                 user.update_user_stats(ht,wt,act,gender,age,hours)
+                st.session_state.key=user
 
         elif bio == 'Goal':
             with st.form("set goals"):
@@ -93,7 +102,8 @@ if choice == 'Login':
                 screentimegoal=st.number_input("screen time goal in hours")
                 submit_button = st.form_submit_button("submit")
             if(submit_button):
-                user.update_user_goals(steps,calories,wellnessgoal,screentimegoal)  
+                st.session_state.key.update_user_goals(steps,calories,wellnessgoal,screentimegoal)
+            st.session_state.key1=st.session_state.key
 
         elif bio == 'Progress':
             fdu = food.FoodItem.unique()
@@ -109,9 +119,10 @@ if choice == 'Login':
                 rate=1
                 hoursSlept=1
                 StepsWalked=1
-                user.update_user_progress(boolBf,breakfast,lunch,dinner,rate,hoursSlept,StepsWalked)
+                st.session_state.key1.update_user_progress(boolBf,breakfast,lunch,dinner,rate,hoursSlept,StepsWalked)
             col1,col2,col3=st.columns(3)
-            col1.write("Score:")
+            st.session_state.key2=st.session_state.key1
+            col1.write(st.session_state.key2.tinfo['phy_wellness'])
             col2.write("Screen Time:")
             col3.write("Mood:")
-  
+
