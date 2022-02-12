@@ -78,8 +78,8 @@ if choice == 'Login':
                 activity=st.radio("Enter number of days you exercise in a week",["1:<1 days","2:1-3 days","3:3-5 days","4:6-7 days","5:physical job"])
                 gender=st.text_input("Enter gender M/F")
                 age=st.number_input("Enter age")
-                hours=st.number_input("Enter number of hours")
-                submit=st.submit_form_button("Calculate wellness score")
+                hours=st.number_input("Enter number of hours you sleep on average")
+                submit=st.submit_form_button("Update")
             if submit:
                 temp=activity.split(":")
                 act=int(temp[0])
@@ -106,7 +106,10 @@ if choice == 'Login':
             if(submi2):
                 temp=bf.split(":")
                 boolBf= int(temp[0])-1
-                user.update_user_progress(boolBf,breakfast,lunch,dinner)
+                rate=1
+                hoursSlept=1
+                StepsWalked=1
+                user.update_user_progress(boolBf,breakfast,lunch,dinner,rate,hoursSlept,StepsWalked)
             col1,col2,col3=st.columns(3)
             col1.write("Steps:")
             col2.write("Screen Time:")
