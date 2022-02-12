@@ -107,8 +107,28 @@ class User:
             score=score-2
         return score
 
-    def calc_calories(food):
-        return 2000
+    def calc_calories(self):
+        cal = 0
+        df_cal = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/calories.csv")
+        df_cal['Cals_per100grams'] = df_cal['Cals_per100grams'].str.replace(' cal','')
+        i = 0
+        for food in self.uinfo['breakfast']:
+            if (df_cal['FoodItem'][i] == food):
+                cal = cal + df_cal['Cals_per100grams'][i]
+                i = i + 1
+        i = 0
+        for food in self.uinfo['lunch']:
+            if (df_cal['FoodItem'][i] == food):
+                cal = cal + df_cal['Cals_per100grams'][i]
+                i = i + 1
+        i = 0 
+        for food in self.uinfo['dinner']:
+            if (df_cal['FoodItem'][i] == food):
+                cal = cal + df_cal['Cals_per100grams'][i]
+                i = i + 1
+        
+        return cal
+             
         
     def update_score(self):
         print(self.uinfo['wt'])
