@@ -6,6 +6,7 @@ class User:
 
     def __init__(self, username):
         self.user=username
+        self.status = " "
         self.goals= {}
         self.uinfo={}
         self.tinfo={}
@@ -66,7 +67,7 @@ class User:
         self.tinfo['heartRate']=rate
         self.uinfo['hours']=hoursSlept
         self.tinfo['stepsWalked']=stepsWalked
-        temp=self.update_score()
+        self.update_score()
 
     def heartScore(self):
         score=10
@@ -105,19 +106,19 @@ class User:
         return score
 
     def calc_calories(food):
-        
+        return 1
         
     def update_score(self):
         bmi=self.uinfo['wt']*100*100/(self.uinfo['ht']*self.uinfo['ht'])
-        status=""
+        self.status=""
         if(bmi<18.5):
-            status='underweight'
+            self.status='underweight'
         elif bmi>18.5 and bmi<=24.9:
-            status="normal"
+            self.status="normal"
         elif bmi>=25 and bmi<=29.9:
-            status="overweight"
+            self.status="overweight"
         else:
-            status="obese"
+            self.status="obese"
         
         calorie=self.cintake()
         heart=self.heartScore()
@@ -125,3 +126,4 @@ class User:
         cal_score= calorie- self.calc_calories()
         phy_wellness= heart*100 + sleep*100 - cal_score
         #men_health= load model and give output
+        self.tinfo['phy_wellness'] = phy_wellness

@@ -111,7 +111,7 @@ if choice == 'Login':
                 StepsWalked=1
                 user.update_user_progress(boolBf,breakfast,lunch,dinner,rate,hoursSlept,StepsWalked)
             col1,col2,col3=st.columns(3)
-            col1.write("Steps:")
+            col1.write("Score:")
             col2.write("Screen Time:")
             col3.write("Mood:")
   
