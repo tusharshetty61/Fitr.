@@ -2,7 +2,7 @@
 import pyrebase
 import streamlit as st
 from datetime import datetime
-import User
+from User import User
 
 # Configuration Key
 firebaseConfig = {

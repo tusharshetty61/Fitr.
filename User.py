@@ -20,4 +20,3 @@ class User:
         self.uinfo['gender']=gender
         self.uinfo['age']=age
         self.uinfo['hours']=hours
-        
