@@ -2,7 +2,9 @@
 import pyrebase
 import streamlit as st
 from datetime import datetime
+import Contact
 from User import User
+import pandas as pd
 
 # Configuration Key
 firebaseConfig = {
@@ -32,6 +34,8 @@ choice = st.sidebar.selectbox('login/Signup', ['Login', 'Sign up'])
 email = st.sidebar.text_input('Please enter your email address')
 password = st.sidebar.text_input('Please enter your password',type = 'password')
 
+#dataset
+food = pd.read_csv('/mnt/d/Hashcode/Hashcode_2022/data/calories.csv')
 # App 
 
 # Sign up Block
@@ -90,13 +94,19 @@ if choice == 'Login':
                 user.update_user_goals(steps,calories,wellnessgoal,screentimegoal)  
 
         elif bio == 'Progress':
+            fdu = food.FoodItem.unique()
             with st.form("Food habits"):
                 bf=st.radio("Did you eat breakfast today?", ["1:yes","2:no"])
-                temp=bf.split(":")
-                boolBf= int(temp[0])-1
+                #temp=bf.split(":")
+                #boolBf= int(temp[0])-1
+                breakfast=st.multiselect(label="Choose your food",options=fdu,key=1)
+                lunch=st.multiselect("Choose your food",fdu,key=2)
+                dinner=st.multiselect("Choose your food",fdu,key=3)
+                submi2 = st.form_submit_button("submit")
+            if(submi2):
+                print("hey") 
             col1,col2,col3=st.columns(3)
             col1.write("Steps:")
             col2.write("Screen Time:")
             col3.write("Mood:")
-
   
