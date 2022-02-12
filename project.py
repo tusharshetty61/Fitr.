@@ -2,6 +2,7 @@
 import pyrebase
 import streamlit as st
 from datetime import datetime
+import User
 
 # Configuration Key
 firebaseConfig = {
@@ -57,6 +58,7 @@ if choice == 'Login':
         user = auth.sign_in_with_email_and_password(email,password)
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
         bio = st.radio('How can we help you :DD ? ',['Contact','Let us know you a bit better','Goal', 'Progress'])
+        user=User('sup')
         
         if bio == 'Contact':
             col1,col2,col3=st.columns(3)    
@@ -75,7 +77,7 @@ if choice == 'Login':
                 hours=st.number_input("Enter number of hours")
                 submit=st.submit_form_button("Calculate wellness score")
             if submit:
-                User.update_user_stats(ht,wt,activity,gender,age,hours)
+                user.update_user_stats(ht,wt,activity,gender,age,hours)
 
         elif bio == 'Goal':
             with st.form("set goals"):
@@ -85,7 +87,7 @@ if choice == 'Login':
                 screentimegoal=st.number_input("screen time goal in hours")
                 submit_button = st.form_submit_button("submit")
             if(submit_button):
-                User.user_goals_update(steps,calories,wellnessgoal,screentimegoal)  
+                user.update_user_goals(steps,calories,wellnessgoal,screentimegoal)  
 
         elif bio == 'Progress':
                 col1,col2,col3=st.columns(3)

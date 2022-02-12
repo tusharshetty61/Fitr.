@@ -1,7 +1,7 @@
 import streamlit as st
 
 class User:
-    
+
     def __init__(self, username):
         self.user=username
         self.goals= {}
@@ -13,7 +13,7 @@ class User:
         self.goals['wellnessgoals']=wellnessgoals
         self.goals['screentimegoals']=screentimegoals
     
-    def update_user_info(self,ht,wt,activity,gender,age,hours):
+    def update_user_stats(self,ht,wt,activity,gender,age,hours):
         self.uinfo['ht']=ht
         self.uinfo['wt']=wt
         self.uinfo['activity']=activity
