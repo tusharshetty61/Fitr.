@@ -7,9 +7,9 @@ class User:
     def __init__(self, username):
         self.user=username
         self.status = " "
-        self.goals= {}
-        self.uinfo={}
-        self.tinfo={}
+        self.goals= {'steps':0,'calories':0,'wellnessgoals':0,'screentimegoals':0}
+        self.uinfo={'ht':0,'wt':0,'activity':0,'gender':"F",'age':0,'hours':0}
+        self.tinfo={'boolBF':False,'breakfast':[],'lunch':[],'dinner':[],'heartRate':0,'hours':0,'stepsWalked':0,'phy_wellness':0}
         
     def update_user_goals(self,steps,calories,wellnessgoals,screentimegoals):
         self.goals['steps']=steps 
@@ -20,12 +20,14 @@ class User:
     def update_user_stats(self,ht,wt,activity,gender,age,hours):
         self.uinfo['ht']=ht
         self.uinfo['wt']=wt
+        # print(self.uinfo['wt'])
         self.uinfo['activity']=activity
         self.uinfo['gender']=gender
         self.uinfo['age']=age
         self.uinfo['hours']=hours
     
     def update_obese_state(self):
+
         bmi=self.uinfo['wt']*100*100/(self.uinfo['ht']*self.uinfo['ht'])
         status=""
         if(bmi<18.5):
@@ -74,7 +76,7 @@ class User:
         max_rate=220-self.uinfo['age']
         min_range=0.5*max_rate
         max_range=0.85*max_rate
-        if self.uinfo['activity']<3:
+        if int(self.uinfo['activity'])<3:
             if self.tinfo['heartRate']<min_range and self.tinfo['heartRate']>max_range:
                 score=score-2
             if self.tinfo['heartRate']>max_rate:
@@ -107,7 +109,7 @@ class User:
 
     def calc_calories(self):
         cal = 0
-        df_cal = pd.read_csv("C:/Users/anany/Documents/GitHub/Hashcode_2022/data/calories.csv")
+        df_cal = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/calories.csv")
         df_cal['Cals_per100grams'] = df_cal['Cals_per100grams'].str.replace(' cal','')
         i = 0
         for food in self.uinfo['breakfast']:
@@ -129,6 +131,7 @@ class User:
              
         
     def update_score(self):
+        print(self.uinfo['wt'])
         bmi=self.uinfo['wt']*100*100/(self.uinfo['ht']*self.uinfo['ht'])
         self.status=""
         if(bmi<18.5):
@@ -142,8 +145,8 @@ class User:
         
         calorie=self.cintake()
         heart=self.heartScore()
-        sleep=self.sleep_score
-        cal_score= calorie - self.calc_calories()
+        sleep=self.sleep_score()
+        cal_score= calorie- self.calc_calories()
         phy_wellness= heart*100 + sleep*100 - cal_score
         #men_health= load model and give output
         self.tinfo['phy_wellness'] = phy_wellness
