@@ -22,7 +22,7 @@ auth = firebase.auth()
 # Database
 db = firebase.database()
 storage = firebase.storage()
-st.sidebar.title("Our community app")
+st.sidebar.title("Fitr.")
 
 # Authentication
 choice = st.sidebar.selectbox('login/Signup', ['Login', 'Sign up'])
@@ -56,7 +56,26 @@ if choice == 'Login':
     if login:
         user = auth.sign_in_with_email_and_password(email,password)
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
-        bio = st.radio('Jump to',[' Contact','Goal', 'Progress'])
+        bio = st.radio('Jump to',['Contact','Goal', 'Progress'])
         
-# SETTINGS PAGE 
-        # if bio == 'Settings':  
+        if bio == 'Contact':
+            col1,col2,col3=st.columns(3)    
+            col1.write("Anisha")
+            col2.write("Ananya")
+            col3.write("Tushar")  
+        elif bio == 'Goal':
+            with st.form("set goals"):
+                steps = st.number_input("Averahge daily steps")
+                calories = st.number_input("Average calories per day")
+                wellnessgoal = st.number_input("Score goal")
+                screentimegoal=st.number_input("screen time goal in hours")
+                submit_button = st.form_submit_button("submit")
+            if(submit_button):
+                User.user_goals_update(steps,calories,wellnessgoal,screentimegoal)  
+
+        elif bio == 'Progress':
+                col1,col2,col3=st.columns(3)
+                col1.write("Steps:")
+                col2.write("Screen Time:")
+                col3.write("Mood:")
+  
