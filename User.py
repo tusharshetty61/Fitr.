@@ -2,10 +2,13 @@ import streamlit as st
 
 class User:
 
-    def __init__(self, username):
+    def __init__(self, username,milestone1,milestone2):
         self.user=username
         self.goals= {}
         self.uinfo={}
+        self.milestone_steps=milestone1
+        self.milestone_screentime=milestone2
+        self.status=""
         
     def update_user_goals(self,steps,calories,wellnessgoals,screentimegoals):
         self.goals['steps']=steps 
@@ -56,7 +59,7 @@ class User:
     #need to write function for self.uinfo['activity']ivity levelhuhuhu
 
 
-def heartScore(self):
+def heartScore(self,rate):
     score=10
     max_rate=220-self.uinfo['age']
     min_range=0.5*max_rate
@@ -95,17 +98,17 @@ def sleep_score(hours, breakfast,age):
 def calc_calories(food):
     return 1
     
-def update_score(ht,wt,self.uinfo['activity'],gender,age,hours,rate,bf,food):
-    bmi=wt*100*100/(ht*ht)
-    status=""
+def update_score(self):
+    bmi=self.uinfo['wt']*100*100/(self.uinfo['ht']*self.uinfo['ht'])
+    self.status=""
     if(bmi<18.5):
-        status='underweight'
+        self.status='underweight'
     elif bmi>18.5 and bmi<=24.9:
-        status="normal"
+        self.status="normal"
     elif bmi>=25 and bmi<=29.9:
-        status="overweight"
+        self.status="overweight"
     else:
-        status="obese"
+        self.status="obese"
     
     calorie=cintake(wt,ht,gender,age,self.uinfo['activity'])
     heart=heartRate(age,rate,self.uinfo['activity'])
