@@ -6,6 +6,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st 
 import seaborn as sns
+import matplotlib.animation as animation
+
 
 daily_activity_merged_df = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/dailyActivity_merge.csv")
 sleep_day_merged_df = pd.read_csv("/mnt/d/Hashcode/Hashcode_2022/data/sleepDay_merged.csv")
@@ -29,7 +31,7 @@ def graph1():
     bx = sns.barplot(x=daily_activity,y=daily_step,palette = "magma")
     bx.axhline(10000,color="yellow",linewidth=3.0)
     st.pyplot(fig)
-
+   
 def graph2():
     i = 0
     daily_sleep = []

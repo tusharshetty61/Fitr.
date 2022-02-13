@@ -8,11 +8,12 @@ Original file is located at
 """
 
 import pandas as pd 
+import joblib
 import numpy as np
 import pickle
 
-df = pd.read_csv('C:/Users/anany/Documents/GitHub/Hashcode_2022/data/25.csv')
-y=pd.read_csv('C:/Users/anany/Documents/GitHub/Hashcode_2022/data/25.csv')
+df = pd.read_csv('/mnt/d/Hashcode/Hashcode_2022/data/25.csv')
+y=pd.read_csv('/mnt/d/Hashcode/Hashcode_2022/data/25.csv')
 
 # df.head
 
@@ -59,6 +60,5 @@ from sklearn.metrics import accuracy_score
 y_pred=model.predict(X_test)
 acc=accuracy_score(y_test,y_pred)
 print(acc)
-with open('model_pkl.pkl', 'wb') as files:
-    pickle.dump(model, files)
+joblib.dump(model,'model') 
 print("dumped!")

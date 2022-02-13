@@ -97,6 +97,8 @@ if choice == 'Login':
 
         elif bio == 'Goal':
             with st.form("set goals"):
+                st.write("Average Steps milestone reward (5000): Extended leave !" )
+                st.write("Average score milestone reward(180):Sponsored vacation !")
                 steps = st.number_input("Average daily steps")
                 calories = st.number_input("Average calories per day")
                 wellnessgoal = st.number_input("Score goal")
@@ -124,7 +126,7 @@ if choice == 'Login':
             col1,col2,col3=st.columns(3)
             st.session_state.key2=st.session_state.key1
             col1.write(st.session_state.key2.tinfo['phy_wellness'])
-            col2.write("Screen Time:")
+            col2.write( st.session_state.key2.tinfo['screentime'])
             col3.write(st.session_state.key2.tinfo['mood'])
             graph1()
             graph2()
